@@ -31,6 +31,17 @@ export const editarNoticia = async(req, res) => {
     }
 }
 
+export const getNoticiaById = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const {data, error} = await noticiasService.getNoticiaById(id);
+        if(error) return res.status(400).json(error);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+}
+
 export const eliminarNoticia = async(req, res) => {
     try {
         const {id} = req.params;

@@ -8,6 +8,19 @@ export const crearNoticia = async(info) => {
 
 export const getNoticias = async() => {
     return await supabase.from('noticias').select('*');
+}
+export const getNoticiaById = async(noticiaId) => {
+    const { data, error } = await supabase
+        .from('noticias')
+        .select('*')
+        .eq('idnoticia', noticiaId)
+        .single();
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
 }   
 
 export const editarNoticia = async(info, noticiaId) => {

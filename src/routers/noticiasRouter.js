@@ -1,5 +1,5 @@
 import express from "express";
-import { crearNoticia, getNoticias, editarNoticia, eliminarNoticia } from "../controllers/noticiasController.js";
+import { crearNoticia, getNoticias, editarNoticia, eliminarNoticia, getNoticiaById } from "../controllers/noticiasController.js";
 
 const router = express.Router();
 
@@ -11,4 +11,5 @@ router.patch("/editarNoticia/:id", editarNoticia)
 
 router.delete("/eliminarNoticia/:id", eliminarNoticia)
 
+router.get("/getNoticiaId/:id", getNoticiaById)
 export default router;

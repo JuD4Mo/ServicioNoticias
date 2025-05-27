@@ -34,12 +34,13 @@ export const editarNoticia = async (req, res) => {
 export const getNoticiaById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { data, error } = await noticiasService.getNoticiaById(id);
+    const idNueva = parseInt(id)
+    const { data, error } = await noticiasService.getNoticiaById(idNueva);
 
     if (error) return res.status(400).json({ message: error });
 
     if (error || !data) {
-      return res.status(404).json({ message: "Noticia no encontrada" + data });
+      return res.status(404).json({ message: "Noticia no encontrada" + data + id});
     }
 
     res.status(200).json(data);

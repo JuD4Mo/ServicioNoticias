@@ -9,11 +9,12 @@ export const crearNoticia = async(info) => {
 export const getNoticias = async() => {
     return await supabase.from('noticias').select('*');
 }
-export const getNoticiaById = async(noticiaId) => {
+export const getNoticiaById = async(id) => {
+    const idNoticia = parseInt(id);
     const { data, error } = await supabase
         .from('noticias')
         .select('*')
-        .eq('idnoticia', noticiaId)
+        .eq('idnoticia', idNoticia)
         .single();
 
     if (error) {

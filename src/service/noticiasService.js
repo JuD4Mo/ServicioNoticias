@@ -9,20 +9,20 @@ export const crearNoticia = async(info) => {
 export const getNoticias = async() => {
     return await supabase.from('noticias').select('*');
 }
-export const getNoticiaById = async(id) => {
-    const idNoticia = parseInt(id);
-    const { data, error } = await supabase
-        .from('noticias')
-        .select('*')
-        .eq('idnoticia', idNoticia)
-        .single();
+export const getNoticiaById = async (id) => {
+  const idNoticia = parseInt(id);
+  console.log("🧩 Buscando noticia con ID:", idNoticia);
 
-    if (error) {
-        throw new Error(error.message);
-    }
+  const { data, error } = await supabase
+    .from("noticias")
+    .select("*")
+    .eq("idnoticia", idNoticia)
+    .maybeSingle(); // <- no lanza error si no hay fila
 
-    return data;
-}   
+  console.log("🎯 Resultado Supabase:", { data, error });
+
+  return { data, error };
+};  
 
 export const editarNoticia = async(info, noticiaId) => {
     const camposActualiar = {};

@@ -34,18 +34,28 @@ export const editarNoticia = async (req, res) => {
 export const getNoticiaById = async (req, res) => {
   try {
     const { id } = req.params;
-    const idNueva = parseInt(id)
-    const { data, error } = await noticiasService.getNoticiaById(idNueva);
+    const idNoticia = parseInt(id?.trim?.());
 
-    if (error) return res.status(400).json({ message: error });
-
-    if (error || !data) {
-      return res.status(404).json({ message: "Noticia no encontrada" + data + id});
+    if (isNaN(idNoticia)) {
+      return res.status(400).json({ message: "ID inválido" });
     }
 
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const { data, error } = await noticiasService.getNoticiaById(idNoticia);
+
+    if (error) {
+      console.error("❌ Error de Supabase:", error);
+      return res.status(500).json({ message: "Error al obtener la noticia", error });
+    }
+
+    if (!data) {
+      console.warn("⚠️ No se encontró noticia con ID:", idNoticia);
+      return res.status(404).json({ message: `Noticia no encontrada con ID ${idNoticia}` });
+    }
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.error("💥 Error inesperado:", err);
+    return res.status(500).json({ message: "Error inesperado", error: err.message });
   }
 };
 

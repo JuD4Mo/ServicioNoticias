@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/noticias", noticiasRouter);
-app.use("/health", (req, res) => res.send("OK"));
+app.get("/health", (req, res) => res.send("OK"));
 
 const PORT = 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
